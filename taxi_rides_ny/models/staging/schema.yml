@@ -1,0 +1,13 @@
+
+version: 2
+
+sources:
+  - name: staging
+    database: sigma-icon-447800-e1
+    schema: zoomcamp_module4
+    tables:
+      - name: greentrip_data
+      - name: yellowtrip_data
+        # freshness:
+        #   error_after: {count: 6, period: hour}
+    
