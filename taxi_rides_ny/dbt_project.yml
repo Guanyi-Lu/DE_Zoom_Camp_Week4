@@ -43,7 +43,7 @@ models:
       core:
           materialized: table
 vars:
-  payment_type_values: [1, 2, 3, 4, 5]
+  payment_type_values: [0, 1, 2, 3, 4, 5]
 
 seeds: 
     taxi_rides_ny:

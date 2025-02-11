@@ -24,7 +24,7 @@ models:
       The table contains records where both pickup and dropoff locations are valid and known zones. 
       Each record corresponds to a trip uniquely identified by tripid. 
     columns:
-      - name: tripid
+      - name: unique_tripid
         data_type: string
         description: "unique identifier conformed by the combination of vendorid and pickup time"
         tests:

@@ -1,16 +1,19 @@
-{{ config(materialized='view') }}
+{{ config(materialized='view') }} --by default, it is a view
 
 WITH tripdata AS (
   SELECT *,
-    ROW_NUMBER() OVER(PARTITION BY vendor_id, pickup_datetime) AS rn
+    ROW_NUMBER() OVER(PARTITION BY vendor_id, pickup_datetime,pickup_location_id) AS rn
   FROM {{ source('staging', 'greentrip_data') }}
   WHERE vendor_id IS NOT NULL 
 ),
+--The ROW_NUMBER() function assigns a unique ranking (rn) to each row partitioned by (vendor_id, pickup_datetime, pickup_location_id). 
+--This means that if there are multiple records with the same vendor_id, 
+--pickup_datetime, and pickup_location_id, they will be numbered sequentially within that group.
 
 cleaned_data AS (
   SELECT
     -- Identifiers
-    {{ dbt_utils.generate_surrogate_key(['vendor_id', 'pickup_datetime']) }} AS tripid,    
+    {{ dbt_utils.generate_surrogate_key(['vendor_id', 'pickup_datetime','pickup_location_id']) }} AS tripid,    
     {{ dbt.safe_cast("vendor_id", api.Column.translate_type("integer")) }} AS vendorid,
     {{ dbt.safe_cast("rate_code", api.Column.translate_type("integer")) }} AS ratecodeid,
     {{ dbt.safe_cast("pickup_location_id", api.Column.translate_type("integer")) }} AS pickup_locationid,
@@ -40,7 +43,7 @@ cleaned_data AS (
     CASE
         WHEN REGEXP_CONTAINS(payment_type, r'^[0-9]+(\.0)?$') THEN  
             SAFE_CAST(REPLACE(payment_type, '.0', '') AS INT64) 
-        ELSE NULL  
+        ELSE 0  
     END AS cleaned_payment_type
 
   FROM tripdata

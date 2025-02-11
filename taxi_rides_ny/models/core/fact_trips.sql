@@ -24,7 +24,8 @@ dim_zones as (
     select * from {{ ref('dim_zones') }}
     where borough != 'Unknown'
 )
-select trips_unioned.tripid, 
+select {{ dbt_utils.generate_surrogate_key(['service_type', 'tripid']) }} AS unique_tripid,   
+    trips_unioned.tripid, 
     trips_unioned.vendorid, 
     trips_unioned.service_type,
     trips_unioned.ratecodeid, 
