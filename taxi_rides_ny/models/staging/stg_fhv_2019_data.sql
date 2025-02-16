@@ -13,8 +13,7 @@ stg_fhv_tripdata as (
     CAST(pickup_datetime AS TIMESTAMP) AS pickup_datetime,
     CAST(dropoff_datetime AS TIMESTAMP) AS dropoff_datetime,
     CAST(pulocationid AS integer) AS pickup_location_id,
-    CAST(dolocationid,AS integer) AS dropoff_location_id,
-  
+    CAST(dolocationid AS integer) AS dropoff_location_id,
     sr_flag,
     affiliated_base_number
 
