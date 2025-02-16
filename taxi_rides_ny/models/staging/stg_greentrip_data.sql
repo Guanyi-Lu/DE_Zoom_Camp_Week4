@@ -54,3 +54,14 @@ SELECT
     *,
     {{ get_payment_type_description('cleaned_payment_type') }} AS payment_type_description
 FROM cleaned_data
+
+
+-- dbt build --select <model_name> --vars '{'is_test_run': 'false'}'
+{% if var('is_test_run', default=true) %}
+
+  limit 100
+
+{% endif %}    
+
+My note: if you  run  dbt build --select stg_greentrip_data --vars '{'is_test_run': 'false'}' in the terminal, this will apply no limit to your staging model.
+         if you  run  dbt build --select stg_greentrip_data --vars '{'is_test_run': 'true'}' in the terminal, or not putting a value (default is true) this will apply a limit of 100 only to your staging model.
