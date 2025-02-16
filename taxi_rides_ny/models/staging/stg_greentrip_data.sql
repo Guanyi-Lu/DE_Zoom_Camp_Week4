@@ -63,5 +63,5 @@ FROM cleaned_data
 
 {% endif %}    
 
-My note: if you  run  dbt build --select stg_greentrip_data --vars '{'is_test_run': 'false'}' in the terminal, this will apply no limit to your staging model.
-         if you  run  dbt build --select stg_greentrip_data --vars '{'is_test_run': 'true'}' in the terminal, or not putting a value (default is true) this will apply a limit of 100 only to your staging model.
+--My note: if you  run  dbt build --select stg_greentrip_data --vars '{'is_test_run': 'false'}' in the terminal, this will apply no limit to your staging model.
+        -- if you  run  dbt build --select stg_greentrip_data --vars '{'is_test_run': 'true'}' in the terminal, or not putting a value (default is true) this will apply a limit of 100 only to your staging model.
