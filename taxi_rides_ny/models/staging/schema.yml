@@ -11,6 +11,8 @@ sources:
       - name: yellowtrip_data
          # freshness:
            # error_after: {count: 6, period: hour}
+      - name: fhv_2019_data
+
 
 models:
     - name: stg_greentrip_data
@@ -195,3 +197,33 @@ models:
             description: Total amount of all tolls paid in trip.
           - name: total_amount 
             description: The total amount charged to passengers. Does not include cash tips. 
+    - name: stg_fhv_2019_data
+      description: "this is fhv 2019 data"
+      columns:
+        - name: dispatching_base_num
+          data_type: string
+          description: ""
+
+        - name: pickup_datetime
+          data_type: string
+          description: "The date and time when the meter was engaged."
+
+        - name: dropoff_datetime
+          data_type: string
+          description: ""
+
+        - name: pulocationid
+          data_type: float64
+          description: ""
+
+        - name: dolocationid
+          data_type: float64
+          description: ""
+
+        - name: sr_flag
+          data_type: float64
+          description: ""
+
+        - name: affiliated_base_number
+          data_type: string
+          description: ""
